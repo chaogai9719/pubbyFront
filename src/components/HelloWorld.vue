@@ -1,6 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <div v-if="currentUser" class="user-info">
+      <p>欢迎, {{ currentUser.username }}!</p>
+      <button @click="logout">退出登录</button>
+    </div>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -31,12 +35,28 @@
 </template>
 
 <script>
+import authService from '../services/authService';
+
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      currentUser: null
+    };
+  },
+  mounted() {
+    this.currentUser = authService.getCurrentUser();
+  },
+  methods: {
+    logout() {
+      authService.clearAuth();
+      this.$router.push({ name: 'Login' });
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -54,5 +74,22 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.user-info {
+  margin: 20px 0;
+}
+
+.user-info button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-info button:hover {
+  background-color: #c0392b;
 }
 </style>
