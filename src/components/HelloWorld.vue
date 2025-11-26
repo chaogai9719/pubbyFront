@@ -1,95 +1,88 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <div v-if="currentUser" class="user-info">
-      <p>欢迎, {{ currentUser.username }}!</p>
-      <button @click="logout">退出登录</button>
+  <div class="hello-wrapper">
+    <div class="hello-content">
+      <div class="welcome-card">
+        <h1>{{ msg }}</h1>
+        <p>欢迎使用 Pubby 管理系统</p>
+        <div class="card-actions">
+          <el-button type="primary" @click="goToUserManagement">用户管理</el-button>
+          <el-button type="success" @click="goToOperationLog">操作日志</el-button>
+        </div>
+      </div>
     </div>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
   </div>
 </template>
 
 <script>
-import authService from '../services/authService';
-
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
-  data() {
-    return {
-      currentUser: null
-    };
-  },
-  mounted() {
-    this.currentUser = authService.getCurrentUser();
-  },
   methods: {
-    logout() {
-      authService.clearAuth();
-      this.$router.push({ name: 'Login' });
+    goToUserManagement() {
+      this.$router.push('/users');
+    },
+    goToOperationLog() {
+      this.$router.push('/logs');
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-
-.user-info {
-  margin: 20px 0;
+.hello-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 添加背景图片 */
+  background-image: url('@/assets/pubby.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.user-info button {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
+.hello-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
 }
 
-.user-info button:hover {
-  background-color: #c0392b;
+.welcome-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  max-width: 600px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.welcome-card:hover {
+  transform: translateY(-5px);
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+p {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.card-actions {
+  margin-top: 2rem;
 }
 </style>

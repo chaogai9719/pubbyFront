@@ -136,5 +136,28 @@ export default {
       this.clearAuth();
       return null;
     }
+  },
+
+  /**
+   * 用户登出
+   * @returns {Promise}
+   */
+  logout() {
+    const token = this.getValidToken();
+    if (token) {
+      // 向后端发送登出请求
+      return apiClient.post('/auth/logout', {}, {
+        headers: {
+          'Authorization': token
+        }
+      }).finally(() => {
+        // 无论请求成功与否，都要清除本地认证信息
+        this.clearAuth();
+      });
+    } else {
+      // 即使没有有效token，也要确保清除本地认证信息
+      this.clearAuth();
+      return Promise.resolve();
+    }
   }
 };

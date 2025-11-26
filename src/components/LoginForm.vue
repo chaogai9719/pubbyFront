@@ -1,38 +1,56 @@
 <template>
   <div class="login-container">
-    <div class="login-form">
-      <h2>用户登录</h2>
-      <form @submit.prevent="handleLogin">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="../assets/logo.png" alt="Logo" class="login-logo" />
+        <h2>用户登录</h2>
+      </div>
+      <form @submit.prevent="handleLogin" class="login-form">
         <div class="form-group">
-          <label for="username">用户名:</label>
-          <input 
-            id="username"
+          <el-input 
             v-model="loginForm.username" 
-            type="text" 
             placeholder="请输入用户名"
-            required
+            prefix-icon="el-icon-user"
+            size="large"
+            clearable
           />
         </div>
         
         <div class="form-group">
-          <label for="password">密码:</label>
-          <input 
-            id="password"
+          <el-input 
             v-model="loginForm.password" 
-            type="password" 
+            type="password"
             placeholder="请输入密码"
-            required
+            prefix-icon="el-icon-lock"
+            size="large"
+            show-password
           />
         </div>
         
         <div class="form-group">
-          <button type="submit" :disabled="loading">
+          <el-checkbox v-model="rememberMe">记住我</el-checkbox>
+        </div>
+        
+        <div class="form-group">
+          <el-button 
+            type="primary" 
+            native-type="submit" 
+            :loading="loading"
+            size="large"
+            round
+            class="login-button"
+          >
             {{ loading ? '登录中...' : '登录' }}
-          </button>
+          </el-button>
         </div>
         
         <div v-if="error" class="error-message">
-          {{ error }}
+          <el-alert
+            :title="error"
+            type="error"
+            show-icon
+            :closable="false"
+          />
         </div>
       </form>
     </div>
@@ -50,6 +68,7 @@ export default {
         username: '',
         password: ''
       },
+      rememberMe: false,
       loading: false,
       error: ''
     };
@@ -91,66 +110,75 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
-}
-
-.login-form {
-  width: 100%;
-  max-width: 400px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
   padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  overflow: hidden;
 }
 
-.login-form h2 {
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-header {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 30px;
 }
 
-.form-group {
+.login-logo {
+  width: 80px;
+  height: 80px;
   margin-bottom: 15px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
+.login-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
 }
 
-.form-group input {
+.login-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.login-button {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.form-group button {
-  width: 100%;
-  padding: 10px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.form-group button:hover:not(:disabled) {
-  background-color: #359c6d;
-}
-
-.form-group button:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
+  margin-top: 10px;
 }
 
 .error-message {
-  color: #e74c3c;
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 </style>

@@ -57,6 +57,15 @@ export default {
   },
   
   /**
+   * 根据用户名搜索用户
+   * @param {String} username 用户名
+   * @returns {Promise}
+   */
+  getUserByUsername(username) {
+    return userApiClient.get(`/users/username/${username}`);
+  },
+  
+  /**
    * 根据ID获取用户详情
    * @param {Number} id 用户ID
    * @returns {Promise}
