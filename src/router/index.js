@@ -3,6 +3,7 @@ import LoginForm from '../components/LoginForm.vue';
 import HelloWorld from '../components/HelloWorld.vue';
 import UserManagement from '../components/UserManagement.vue';
 import OperationLog from '../components/OperationLog.vue';
+import QuarrelRecord from '../components/QuarrelRecord.vue';
 
 // 路由守卫，检查用户是否已认证
 function requireAuth(to, from, next) {
@@ -34,6 +35,12 @@ const routes = [
     path: '/logs',
     name: 'Logs',
     component: OperationLog,
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/quarrels',
+    name: 'Quarrels',
+    component: QuarrelRecord,
     beforeEnter: requireAuth
   },
   {

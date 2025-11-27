@@ -55,7 +55,7 @@
           </el-table-column>
         </el-table>
         
-        <div class="pagination-section">
+        <div class="pagination-section" v-if="total > 10">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -103,6 +103,15 @@ export default {
     // 清理定时器
     if (this.resizeDebounceTimer) {
       clearTimeout(this.resizeDebounceTimer);
+    }
+  },
+  // 添加路由监听，当路由被激活时刷新数据
+  watch: {
+    '$route'(to) {
+      // 当路由是操作日志页面时，自动刷新列表
+      if (to.name === 'Logs') {
+        this.fetchLogs();
+      }
     }
   },
   methods: {
@@ -267,7 +276,7 @@ export default {
 }
 
 .pagination-section {
-  margin-top: 20px;
+  margin-top: 7px;
   display: flex;
   justify-content: flex-end;
 }

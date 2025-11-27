@@ -133,7 +133,7 @@
           </el-table-column>
         </el-table>
         
-        <div class="pagination-section">
+        <div class="pagination-section" v-if="pagination.total > 10">
           <el-pagination
             v-model:current-page="pagination.currentPage"
             v-model:page-size="pagination.pageSize"
@@ -210,6 +210,15 @@ export default {
     // 清理定时器
     if (this.resizeDebounceTimer) {
       clearTimeout(this.resizeDebounceTimer);
+    }
+  },
+  // 添加路由监听，当路由被激活时刷新数据
+  watch: {
+    '$route'(to) {
+      // 当路由是用户管理页面时，自动刷新列表
+      if (to.name === 'Users') {
+        this.fetchUsers();
+      }
     }
   },
   methods: {
