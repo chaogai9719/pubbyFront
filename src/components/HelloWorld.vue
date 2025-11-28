@@ -1,6 +1,6 @@
 <template>
   <div class="hello-wrapper">
-    <div class="hello-content">
+    <!-- <div class="hello-content">
       <div class="welcome-card">
         <h1>{{ msg }}</h1>
         <p>欢迎使用 Pubby 管理系统</p>
@@ -9,7 +9,7 @@
           <el-button type="success" @click="goToOperationLog">操作日志</el-button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

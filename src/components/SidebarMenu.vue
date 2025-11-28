@@ -16,6 +16,7 @@
       <!-- 添加首页菜单项 -->
       <el-menu-item index="/" class="home-menu-item">首页</el-menu-item>
       <el-menu-item index="/quarrels">吵架记录</el-menu-item>
+      <el-menu-item index="/food-reviews">狗娃娃菜单</el-menu-item>
       <el-sub-menu index="1">
         <template #title>
           <el-icon><setting /></el-icon>
