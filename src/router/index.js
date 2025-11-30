@@ -5,6 +5,7 @@ import UserManagement from '../components/UserManagement.vue';
 import OperationLog from '../components/OperationLog.vue';
 import QuarrelRecord from '../components/QuarrelRecord.vue';
 import FoodReview from '../components/FoodReview.vue';
+import DogGallery from '../components/DogGallery.vue';
 
 // 路由守卫，检查用户是否已认证
 function requireAuth(to, from, next) {
@@ -48,6 +49,12 @@ const routes = [
     path: '/food-reviews',
     name: 'FoodReviews',
     component: FoodReview,
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/dogs',
+    name: 'DogGallery',
+    component: DogGallery,
     beforeEnter: requireAuth
   },
   {

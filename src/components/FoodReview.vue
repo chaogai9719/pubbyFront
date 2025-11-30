@@ -82,6 +82,16 @@
       </template>
     </el-dialog>
     
+    <!-- 查看大图的弹窗 -->
+    <el-dialog
+      v-model="previewDialogVisible"
+      width="80%"
+      top="50px"
+      @close="handlePreviewClose"
+    >
+      <img :src="previewImageUrl" class="preview-image" :alt="currentReview?.restaurantName">
+    </el-dialog>
+    
     <div class="reviews-container">
       <div 
         v-for="review in reviews" 
@@ -94,6 +104,7 @@
             :src="getCachedImagePreviewUrl(review.foodImage)" 
             :alt="review.restaurantName"
             class="food-image-display"
+            @click="previewImage(review)"
           >
           <div v-else class="no-image">暂无图片</div>
         </div>
@@ -177,6 +188,11 @@ export default {
       },
       addFoodReviewLoading: false,
       addFoodReviewFormRef: null,
+      
+      // 查看大图弹窗控制
+      previewDialogVisible: false,
+      previewImageUrl: '',
+      currentReview: null,
       
       // 上传相关
       uploadImageUrl: '/api/food-reviews/upload-image',
@@ -350,6 +366,20 @@ export default {
           }
         }
       });
+    },
+    
+    previewImage(review) {
+      if (review.foodImage) {
+        this.currentReview = review;
+        this.previewImageUrl = this.imagePreviewUrls[review.foodImage];
+        this.previewDialogVisible = true;
+      }
+    },
+    
+    handlePreviewClose() {
+      this.previewImageUrl = '';
+      this.currentReview = null;
+      this.previewDialogVisible = false;
     },
     
     async handleEdit(row) {
@@ -554,6 +584,13 @@ export default {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
