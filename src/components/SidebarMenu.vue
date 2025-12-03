@@ -18,14 +18,8 @@
       <el-menu-item index="/quarrels">吵架记录</el-menu-item>
       <el-menu-item index="/food-reviews">狗娃娃菜单</el-menu-item>
       <el-menu-item index="/dogs">狗娃娃照片墙</el-menu-item>
-      <el-sub-menu index="1">
-        <template #title>
-          <el-icon><setting /></el-icon>
-          <span>系统管理</span>
-        </template>
-        <el-menu-item index="/users">用户管理</el-menu-item>
-        <el-menu-item index="/logs">操作日志</el-menu-item>
-      </el-sub-menu>
+      <el-menu-item index="/users">用户管理</el-menu-item>
+      <el-menu-item index="/logs">操作日志</el-menu-item>
     </el-menu>
   </div>
 </template>
